@@ -1,8 +1,8 @@
-var BH1750 = require('../bh1750');
-var light = new BH1750();
+var HDC1008 = require('../hdc1008');
+var temp = new HDC1008();
 
-light.readLight(function(value){
-    console.log("light value is: ", value, "lx");
+temp.readTemperature(function(value){
+    console.log("temperature value is: ", value, "°C");
 });
 
 

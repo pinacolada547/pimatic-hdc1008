@@ -1,0 +1,30 @@
+{ "name": "pimatic-hdc1008",
+  "description": "Support for the HDC1008 i2c temperature and humidity sensor.",
+  "author": "Sonja Schmickler",
+  "license": "Apache-2.0",
+  "main": "hdc1008",
+  "files": [
+    "hdc1008.coffee",
+    "README.md",
+    "hdc1008-config-schema.coffee",
+    "device-config-schema.coffee"
+  ],
+  "version": "0.0.1",
+  "private": true,
+  "keywords": [
+    "pimatic",
+    "devices",
+    "HDC1008"
+  ],
+  "configSchema": "hdc1008-config-schema.coffee",
+  "dependencies": {
+    "hdc1008": "file:hdc1008"		
+  },
+  "peerDependencies": {
+   "pimatic": "0.9.*"
+  },
+  "engines": {
+    "node": ">0.8.x",
+    "npm": ">1.1.x"
+  }
+}

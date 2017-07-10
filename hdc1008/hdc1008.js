@@ -18,6 +18,16 @@ HDC1008.prototype.readTemperature = function (cb) {
         console.error("missing callback");
         return;
     }
+
+
+    this.wire.writeByte(0x02, function (err) {
+
+        if (utils.exists(err)) {
+            console.error("error write byte to HDC1008 - command: ","0x02");
+
+        }
+    });
+
     this.wire.writeByte(this.options.command, function (err) {
         if (utils.exists(err)) {
             console.error("error write byte to HDC1008 - command: ", self.options.command);
@@ -28,7 +38,10 @@ HDC1008.prototype.readTemperature = function (cb) {
         var byte2 = res.readUInt8(1);
 
         var temp = (byte1 * 256) + byte2;
-        var celsTemp = (temp / 65536.0) * 165.0 - 40;
+        var celsTemp =((temp / 65536.0) * 165.0) - 40;
+
+        console.info("var celstemp: 2",celsTemp);
+  	    celsTemp = Math.abs(celsTemp);
 
 
         cb.call(self, celsTemp);
@@ -36,3 +49,4 @@ HDC1008.prototype.readTemperature = function (cb) {
 };
 
 module.exports = HDC1008;
+

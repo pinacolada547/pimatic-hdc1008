@@ -1,5 +1,5 @@
 {
-    "name": "hdc1008-jh",
+    "name": "hdc1008",
     "description": "temperature sensor hdc1008 with raspberry pi",
     "author": "Sonja",
     "version": "0.0.1",

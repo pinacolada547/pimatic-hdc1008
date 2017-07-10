@@ -1,33 +1,23 @@
-
-{ "name": "pimatic-hdc1008",
-  "description": "Support for the HDC1008 i2c temperature and humidity sensor.",
-  "author": "Sonja Schmickler",
-  "license": "Apache-2.0",
-  "main": "hdc1008",
-  "files": [
-    "hdc1008.coffee",
-    "README.md",
-    "hdc1008-config-schema.coffee",
-    "device-config-schema.coffee"
-  ],
-  "version": "0.0.1",
-  "private": true,
-  "keywords": [
-    "pimatic",
-    "devices",
-    "HDC1008"
-  ],
-  "configSchema": "hdc1008-config-schema.coffee",
-  "dependencies": {
-    "hdc1008": "file:hdc1008"
-  },
-  "peerDependencies": {
-   "pimatic": "0.9.*"
-  },
-  "engines": {
-    "node": ">0.8.x",
-    "npm": ">1.1.x"
-  }
+{
+    "name": "hdc1008-jh",
+    "description": "temperature sensor hdc1008 with raspberry pi",
+    "author": "Sonja",
+    "version": "0.0.1",
+    "main": "hdc1008",
+    "repository": {
+        
+    },
+    "dependencies": {
+        "lodash": "2.4.1",
+        "i2c": "~0.2.1"
+    },
+    "keywords": [
+        "raspberry, raspberry pi, temperature, sensor, hdc1008"
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://mths.be/mit"
+        }
+    ]
 }
-
-

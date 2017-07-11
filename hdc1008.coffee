@@ -72,9 +72,12 @@ module.exports = (env) ->
       #).catch( (error) =>
       #  env.logger.error(
       #    "Error reading HDC1008Sensor with address #{@config.address}: #{error.message}"
-      #  )
-      #  env.logger.debug(error.stack)
+      #)
+      #  env.logger.debug(error.stack) 
 	  
+	  )
+	  
+	  	  
 	  @sensor.readHumidity( (value) =>
      # if value isnt @_humidity
           @_humidity = value
@@ -86,12 +89,13 @@ module.exports = (env) ->
        #   "Error reading HDC1008Sensor with address #{@config.address}: #{error.message}"
       #  )
        # env.logger.debug(error.stack)
-	  
-      )
-
-    getTemperature: -> Promise.resolve(@_temperature)
+	   
+	   )
+	   	   
+	        
+    getTemperature: -> Promise.resolve(@_temperature) 
 	getHumidity: -> Promise.resolve(@_humidity)
-
-  # Create a instance and return it to the framework
-  myPlugin = new HDC1008Plugin
-  return myPlugin
+	
+# Create a instance and return it to the framework  
+myPlugin = new HDC1008Plugin
+return myPlugin

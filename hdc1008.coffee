@@ -28,6 +28,10 @@ module.exports = (env) ->
         description: "The measured temperature"
         type: t.number
         unit: '°C'
+	 humidity:
+        description: "The actual percentage of Humidity"
+        type: t.number
+        unit: '%'
        
     template: "temperature"	  
 	  
@@ -42,8 +46,10 @@ module.exports = (env) ->
       @sensor = new HDC1008({
         address: parseInt @config.address,
         device: @config.device,
-        command: 0x00,
-        length: 2
+        commandTemp: 0x00,
+        lengthTemp: 2,
+        commandHumi: 0x01,
+        lengthHumi: 2
       });
       Promise.promisifyAll(@sensor)
 
@@ -68,9 +74,23 @@ module.exports = (env) ->
       #    "Error reading HDC1008Sensor with address #{@config.address}: #{error.message}"
       #  )
       #  env.logger.debug(error.stack)
+	  
+	  @sensor.readHumidity( (value) =>
+     # if value isnt @_humidity
+          @_humidity = value
+          @emit 'humidity', value
+     # else
+      #  env.logger.debug("Sensor value (#{value}) did not change.")
+     # ).catch( (error) =>
+      #  env.logger.error(
+       #   "Error reading HDC1008Sensor with address #{@config.address}: #{error.message}"
+      #  )
+       # env.logger.debug(error.stack)
+	  
       )
 
     getTemperature: -> Promise.resolve(@_temperature)
+	getHumidity: -> Promise.resolve(@_humidity)
 
   # Create a instance and return it to the framework
   myPlugin = new HDC1008Plugin

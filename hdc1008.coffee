@@ -42,8 +42,10 @@ module.exports = (env) ->
       @sensor = new HDC1008({
         address: parseInt @config.address,
         device: @config.device,
-        command: 0x00,
-        length: 2
+        commandTemp: 0x00,
+        lengthTemp: 2,
+		commandHumi: 0x01,
+		lengthHumi: 2
       });
       Promise.promisifyAll(@sensor)
 

@@ -20,20 +20,9 @@ HDC1008.prototype.readTemperature = function (cb) {
     }
 
 
-    /*this.wire.write([0x02,0x30], function (err) {
-
-	console.info("write wird aufgerufen",null);
-	
-        if (utils.exists(err)) {
-            console.error("error write byte to HDC1008 - command: ","0x02,0x30");
-
-        }
-    });*/
-
     this.wire.writeByte(this.options.command, function (err) {
 		
-		console.info("writebyte wird aufgerufen",null);
-		
+				
         if (utils.exists(err)) {
             console.error("error write byte to HDC1008 - command: ", self.options.command);
         }

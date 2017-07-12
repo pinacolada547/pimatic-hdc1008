@@ -42,11 +42,8 @@ module.exports = (env) ->
       @sensor = new HDC1008({
         address: parseInt @config.address,
         device: @config.device,
-        commandTemp: 0x00,
-        lengthTemp: 2,
-		commandHumi: 0x01,
-		lengthHumi: 2
-      });
+        commandTemp: 0x00, lengthTemp:2, commandHumi: 0x01, lengthHumi:2
+	 		});
       Promise.promisifyAll(@sensor)
 
       super()
@@ -76,4 +73,4 @@ module.exports = (env) ->
 
   # Create a instance and return it to the framework
   myPlugin = new HDC1008Plugin
-  return myPlugin
+  return myPlugin														

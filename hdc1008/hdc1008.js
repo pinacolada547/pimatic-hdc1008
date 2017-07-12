@@ -22,7 +22,7 @@ HDC1008.prototype.readTemperature = function (cb) {
 
     this.wire.write([0x02,0x30], function (err) {
 
-	console.info("writ wird aufgerufen",null);
+	console.info("write wird aufgerufen",null);
 	
         if (utils.exists(err)) {
             console.error("error write byte to HDC1008 - command: ","0x02,0x30");
@@ -41,7 +41,7 @@ HDC1008.prototype.readTemperature = function (cb) {
     this.wire.readBytes(this.options.command, this.options.length, function (err, res) {
         var byte1 = res.readUInt8(0);
         var byte2 = res.readUInt8(1);
-
+		
         var temp = (byte1 * 256) + byte2;
         var celsTemp =((temp / 65536.0) * 165.0) - 40;
 

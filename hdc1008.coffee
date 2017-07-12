@@ -28,6 +28,10 @@ module.exports = (env) ->
         description: "The measured temperature"
         type: t.number
         unit: '°C'
+      humidity:
+        description: "The actual degree of Humidity"
+        type: "number"
+        unit: '%'
        
     template: "temperature"	  
 	  
@@ -38,12 +42,16 @@ module.exports = (env) ->
       @id = @config.id
       @name = @config.name
       @_temperature = lastState?.temperature?.value
+      @_humidity = lastState?.humidity?.value
       HDC1008 = require 'hdc1008'
       @sensor = new HDC1008({
         address: parseInt @config.address,
         device: @config.device,
-        commandTemp: 0x00, lengthTemp:2, commandHumi: 0x01, lengthHumi:2
-	 		});
+        commandTemp: 0x00,
+        lengthTemp: 2,
+        commandHumi: 0x01,
+        lengthHumi: 2
+      });
       Promise.promisifyAll(@sensor)
 
       super()
@@ -57,20 +65,38 @@ module.exports = (env) ->
 
     requestValue: ->
       @sensor.readTemperature( (value) =>
-        #if value isnt @_temperature
+      # if value isnt @_temperature
           @_temperature = value
           @emit 'temperature', value
-        #else
-        #  env.logger.debug("Sensor value (#{value}) did not change.")
-      #).catch( (error) =>
-      #  env.logger.error(
+      # else
+       #  env.logger.debug("Sensor value (#{value}) did not change.")
+    # ).catch( (error) =>
+     #  env.logger.error(
       #    "Error reading HDC1008Sensor with address #{@config.address}: #{error.message}"
-      #  )
+      # )
       #  env.logger.debug(error.stack)
       )
 
+      @sensor.readHumidity( (value) =>
+     # if value isnt @_humidity
+          @_humidity = value
+          @emit 'humidity', value
+     # else
+      #  env.logger.debug("Sensor value (#{value}) did not change.")
+     # ).catch( (error) =>
+      #  env.logger.error(
+       #   "Error reading HDC1008Sensor with address #{@config.address}: #{error.message}"
+      #  )
+       # env.logger.debug(error.stack)
+
+
+      )
+
+
     getTemperature: -> Promise.resolve(@_temperature)
+    getHumidity: -> Promise.resolve(@_humidity)
 
   # Create a instance and return it to the framework
   myPlugin = new HDC1008Plugin
-  return myPlugin														
+  return myPlugin
+
